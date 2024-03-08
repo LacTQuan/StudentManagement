@@ -4,24 +4,18 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MotionEvent
-import android.view.View
-import android.widget.Adapter
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.studentmanagement.models.Student
-import kotlin.math.log
 
 class StudentAdding : AppCompatActivity() {
     @SuppressLint("MissingInflatedId", "ClickableViewAccessibility")
@@ -52,7 +46,7 @@ class StudentAdding : AppCompatActivity() {
             Global.students.add(Student(name, className, dob, gender))
 
             val intent = Intent()
-            intent.putExtra("reload", true)
+            intent.putExtra("state", "add")
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
@@ -62,14 +56,14 @@ class StudentAdding : AppCompatActivity() {
 
         spinner.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, Global.classes)
 
-        spinner.setOnTouchListener() { view, motionEvent ->
-            if (motionEvent.action == MotionEvent.ACTION_UP) {
-                Log.d("Spinner", "Spinner was touched")
-                val intent = Intent(this, ClassSelection::class.java)
-                resultLauncher.launch(intent)
-            }
-            true
-        }
+//        spinner.setOnTouchListener() { view, motionEvent ->
+//            if (motionEvent.action == MotionEvent.ACTION_UP) {
+//                Log.d("Spinner", "Spinner was touched")
+//                val intent = Intent(this, ClassSelection::class.java)
+//                resultLauncher.launch(intent)
+//            }
+//            true
+//        }
     }
 
     private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

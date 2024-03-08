@@ -93,13 +93,22 @@ class MainActivity : ComponentActivity() {
         resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data
-                val message = data?.getBooleanExtra("reload", false)
+                val message = data?.getStringExtra("state")
 
                 // print out the type of message
-                Log.d("Type", message.toString())
+//                Log.d("Type", message.toString())
 
-                if (message == true) {
-                    Repo.getInstance(this).saveStudent()
+                if (message == "update") {
+                    val idx = intent.getIntExtra("idx", 0)
+                    Repo.getInstance(this).updateStudent(Global.students[idx])
+                    studentAdapter.updateData(ArrayList(Global.students))
+                } else if (message == "delete") {
+                    val idx = intent.getIntExtra("idx", 0)
+                    Repo.getInstance(this).deleteStudent(Global.students[idx])
+                    Global.students.removeAt(idx)
+                    studentAdapter.updateData(ArrayList(Global.students))
+                } else {
+                    Repo.getInstance(this).addStudent(Global.students.last())
                     studentAdapter.updateData(ArrayList(Global.students))
                 }
             }

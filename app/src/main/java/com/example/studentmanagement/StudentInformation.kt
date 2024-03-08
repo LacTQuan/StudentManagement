@@ -38,7 +38,8 @@ class StudentInformation : AppCompatActivity() {
 
             Global.students[selectedIdx] = Student(name, className, dob, gender)
             val intent = Intent()
-            intent.putExtra("reload", true)
+            intent.putExtra("state", "update")
+            intent.putExtra("idx", selectedIdx)
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
@@ -50,9 +51,9 @@ class StudentInformation : AppCompatActivity() {
         deleteButton.background = drawable2
         deleteButton.setOnClickListener {
             val selectedIdx = intent.getIntExtra("selectedStudent", -1)
-            Global.students.removeAt(selectedIdx)
             val intent = Intent()
-            intent.putExtra("reload", true)
+            intent.putExtra("state", "delete")
+            intent.putExtra("idx", selectedIdx)
             setResult(Activity.RESULT_OK, intent)
             finish()
         }

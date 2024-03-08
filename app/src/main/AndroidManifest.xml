@@ -13,11 +13,6 @@
         android:theme="@style/Theme.StudentManagement"
         tools:targetApi="31">
         <activity
-            android:name=".ClassSelection"
-            android:exported="false"
-            android:label="Class Selection"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity
             android:name=".StudentAdding"
             android:exported="false"
             android:label="Student Adding"
