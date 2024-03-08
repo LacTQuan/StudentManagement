@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.webkit.WebView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -14,6 +15,7 @@ import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.studentmanagement.models.Student
+
 
 class StudentInformation : AppCompatActivity() {
     @SuppressLint("MissingInflatedId", "ClickableViewAccessibility", "CutPasteId")
@@ -75,7 +77,7 @@ class StudentInformation : AppCompatActivity() {
         findViewById<Spinner>(R.id.infoClassName).setSelection(position)
 
         val radioGroup = findViewById<RadioGroup>(R.id.infoGender)
-        val gender = student?.gender
+        val gender = student.gender
 
         for (i in 0 until radioGroup.childCount) {
             val radioButton = radioGroup.getChildAt(i) as RadioButton
@@ -83,6 +85,13 @@ class StudentInformation : AppCompatActivity() {
                 radioButton.isChecked = true
                 break
             }
+        }
+
+        val btnLink = findViewById<Button>(R.id.btnLink)
+        btnLink.setOnClickListener() {
+            val intent = Intent(this, StudentWebView::class.java)
+            intent.putExtra("selectedStudent", selectedIdx)
+            startActivity(intent)
         }
     }
 }
